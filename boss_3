@@ -1,0 +1,74 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+
+int main()
+{
+
+    bool has_boosted = false; // flag to check if boost has already been used
+    // game loop
+    while (1) {
+        int x;
+        int y;
+        int next_checkpoint_x; // x position of the next check point
+        int next_checkpoint_y; // y position of the next check point
+        int next_checkpoint_dist; // distance to the next checkpoint
+        int next_checkpoint_angle; // angle between your pod orientation and the direction of the next checkpoint
+        int opponent_x;
+        int opponent_y;
+        int thrust;
+        int absolut_angle;
+        const int angle_thrust_base = 60;
+        const int dist_threshold = 4000;
+        const float dist_factor = 0.87;
+        
+
+        cin >> x >> y >> next_checkpoint_x >> next_checkpoint_y >> next_checkpoint_dist >> next_checkpoint_angle;
+        cin.ignore();
+        cin >> opponent_x >> opponent_y;
+        cin.ignore();
+
+        if( next_checkpoint_angle < 0){
+            absolut_angle = -1 * next_checkpoint_angle; 
+            }
+        else {
+            absolut_angle = next_checkpoint_angle;
+        }
+        cerr << absolut_angle << "next angle" << next_checkpoint_angle << endl;
+
+        if (absolut_angle < 90){
+            if (next_checkpoint_dist > dist_threshold){
+                thrust = angle_thrust_base + ((float)(100 - angle_thrust_base)/90) * (90-absolut_angle); 
+            }
+            else {
+                thrust = (angle_thrust_base + ((float)(100 - angle_thrust_base)/90) * (90-absolut_angle))  
+                * ((float)next_checkpoint_dist / dist_threshold) * dist_factor 
+                + 100 * (1-dist_factor);
+            }
+        }
+        else {
+            thrust = 0;
+        }
+
+        if(absolut_angle < 5 && next_checkpoint_dist > 4000 && !has_boosted) {
+            has_boosted = true;
+            cout << next_checkpoint_x << " " << next_checkpoint_y << " " << "BOOST" << endl;
+            cerr << "has_boosted";
+        } else {
+            cout << next_checkpoint_x << " " << next_checkpoint_y << " " << thrust << endl;
+        }
+    
+
+
+    }
+    return 0;
+}
+
