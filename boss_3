@@ -1,0 +1,52 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+
+int main()
+{
+
+    bool has_boosted = false; // flag to check if boost has already been used
+    // game loop
+    while (1) {
+        int x;
+        int y;
+        int next_checkpoint_x; // x position of the next check point
+        int next_checkpoint_y; // y position of the next check point
+        int next_checkpoint_dist; // distance to the next checkpoint
+        int next_checkpoint_angle; // angle between your pod orientation and the direction of the next checkpoint
+        int opponent_x;
+        int opponent_y;
+        int thrust;
+        
+
+        cin >> x >> y >> next_checkpoint_x >> next_checkpoint_y >> next_checkpoint_dist >> next_checkpoint_angle;
+        cin.ignore();
+        cin >> opponent_x >> opponent_y;
+        cin.ignore();
+
+        // Check if the distance to the next checkpoint is less than or equal to 600
+        // and the angle between the player's pod orientation and the direction of the next checkpoint is less than or equal to 5 degrees
+        if (next_checkpoint_dist >= 2000 && (next_checkpoint_angle > 10 || next_checkpoint_angle < -10) && !has_boosted) {
+            cout << next_checkpoint_x << " " << next_checkpoint_y << " BOOST" << endl;
+            has_boosted = true;
+        } else {
+            if (next_checkpoint_angle > 90 || next_checkpoint_angle < -90) {
+                thrust = 0;
+            } else {
+                thrust = 100;
+            }
+        }
+
+        // Output the x and y coordinates of the next checkpoint and the thrust value
+        cout << next_checkpoint_x << " " << next_checkpoint_y << " " << thrust << " " << endl;
+    }
+    return 0;
+}
