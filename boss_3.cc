@@ -3,6 +3,8 @@
 #include <vector>
 #include <algorithm>
 
+// some ideas - not final
+
 using namespace std;
 
 /**
