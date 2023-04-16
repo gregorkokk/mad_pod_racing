@@ -84,19 +84,31 @@ int main()
         else {
             thrust = 5;
         }
-// when checkpoints are closer then thrust is 10
+// when checkpoints are extra close then thrust is 10
         if (next_checkpoint_dist < 500) {
             thrust = 10;
         }
+// if next_checkpoint_dist is small then thrust is lower ---> change 1.5 try?!
+        if (next_checkpoint_dist < 1500) {
+            thrust = ((pow(dist_traveled, 1.5) * -1) +1) *100;
+        }
+        else {
+            thrust = 100;
+
+            }
         
 
 
 
-// printed out to get ideas and to control
+// printed out to get ideas and to check
 // can also be commented out
         cerr << "distance traveled:  " << dist_traveled << endl;
         cerr << "distance:   " << dist << endl;
         cerr << "next distance:   " << next_checkpoint_dist << endl;
+   
+
+
+
         
     }
 }
